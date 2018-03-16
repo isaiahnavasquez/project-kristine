@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-  <div style="height:100%;width100%;">
+  <div style="height:100%;width:100%;">
     <div class="card auth-card">
       <div class="card-body">
         <h5 class="card-title">Login</h5>

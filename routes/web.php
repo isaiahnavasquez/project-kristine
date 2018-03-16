@@ -13,6 +13,7 @@
 
 Route::get('/', 'PageController@login');
 Route::get('/accounts/add', 'AccountsController@addUser');
+Route::get('/accounts/logs', 'AccountsController@getUserLogs');
 Route::get('/dashboard', 'PageController@dashboard');
 Route::get('/accounts/list', 'PageController@accountsList');
 Route::get('/accounts/view/{username}', 'PageController@viewProfile');

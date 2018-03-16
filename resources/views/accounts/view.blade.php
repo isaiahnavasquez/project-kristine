@@ -1,6 +1,9 @@
 @extends('authentication.dashboard')
 
 @section('header')
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <style>
 
   .card {
@@ -45,7 +48,7 @@
               <th scope="col">Status</th>
             </tr>
           </thead>
-          <tbody>
+          <!-- <tbody>
             <tr>
               <th scope="row">Add File</th>
               <td>Saturday, 08:01pm</td>
@@ -56,71 +59,56 @@
                 <a href="#">Success</a>
               </td>
             </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <th scope="row">Add File</th>
-              <td>Saturday, 08:01pm</td>
-              <td>
-                <a href="#">View</a>
-              </td>
-              <td>
-                <a href="#">Success</a>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <th scope="row">Add File</th>
-              <td>Saturday, 08:01pm</td>
-              <td>
-                <a href="#">View</a>
-              </td>
-              <td>
-                <a href="#">Success</a>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <th scope="row">Add File</th>
-              <td>Saturday, 08:01pm</td>
-              <td>
-                <a href="#">View</a>
-              </td>
-              <td>
-                <a href="#">Success</a>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <th scope="row">Add File</th>
-              <td>Saturday, 08:01pm</td>
-              <td>
-                <a href="#">View</a>
-              </td>
-              <td>
-                <a href="#">Success</a>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <th scope="row">Add File</th>
-              <td>Saturday, 08:01pm</td>
-              <td>
-                <a href="#">View</a>
-              </td>
-              <td>
-                <a href="#">Success</a>
-              </td>
-            </tr>
-          </tbody>
+          </tbody> -->
         </table>
       </div>
     </div>
   </div>
 </div>
 
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+  $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+  var username = '{!! $account[0]->username !!}';
+  getLogs();
+
+  function getLogs() {
+    $.ajax({
+      type: 'GET',
+      url: '/accounts/logs',
+      data: { 'username': username },
+      success: function(response) {
+        for (var i = 0; i < response.logs.length; i++) {
+          $('.table').append(getRecordHTML(response.logs[i]));
+        }
+      },
+      error: function(a, status, code) {
+        console.log(status);
+      }
+    });
+  }
+
+  function getRecordHTML(log) {
+    console.log(log);
+    var output =
+    "<tbody>"+
+    "  <tr>"+
+    "    <th scope=\"row\">Add File</th>"+
+    "    <td>" + log.updated_at + "</td>"+
+    "    <td>"+
+    "      <a href=\"/files/view/" + log.id + "\">View</a>"+
+    "    </td>"+
+    "    <td>"+
+    "      <a href=\"/files/view/" + log.id + "\">Success</a>"+
+    "    </td>"+
+    "  </tr>"+
+    "</tbody>";
+    return output;
+  }
+
+</script>
 @endsection

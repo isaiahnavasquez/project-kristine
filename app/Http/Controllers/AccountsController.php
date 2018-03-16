@@ -26,10 +26,19 @@ class AccountsController extends Controller
 
     auth()->attempt([
       'username' => $user->username,
-      'password' => $user->password 
+      'password' => $user->password
     ]);
 
     return view('authentication.dashboard');
+
+  }
+
+  public function getUserLogs(Request $request) {
+
+    $fileset = new \App\FileSet;
+    $logs = $fileset->where('uploader', '=', $request->username)->get();
+
+    return compact('logs');
 
   }
 
