@@ -130,6 +130,7 @@
       data: search,
       success: function(results) {
         displayResults(results.results);
+        // lol
       },
       error: function(jqXHR, status, error) {
         console.log(status + '\n' + error);
