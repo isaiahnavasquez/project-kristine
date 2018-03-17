@@ -16,7 +16,11 @@ class FilesController extends Controller
     $uploader = $request->uploader;
     $department = $request->department;
 
-    $query_priority = "SELECT * FROM file_sets WHERE name LIKE '%" . $main . "%' ";
+    if ($main !=null) {
+      $query_priority = "SELECT * FROM file_sets WHERE name LIKE '%{$main}%' ";
+    } else {
+      $query_priority = "SELECT * FROM file_sets WHERE FALSE ";
+    }
     $query_additional = $query_priority;
 
     if ($type != null) {
@@ -38,6 +42,11 @@ class FilesController extends Controller
 
     $results_priority = DB::select($query_priority);
     $results_additional = DB::select($query_additional);
+
+    $queries = array(
+      'priority' => $query_priority,
+      'additional' => $query_additional,
+    );
 
     $results = array(
       'priority' => $results_priority,

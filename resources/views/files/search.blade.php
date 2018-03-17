@@ -56,7 +56,6 @@
               <div class="form-group">
                 <label for="inputType">Type</label>
                 <input type="text" class="form-control" id="inputType">
-                <!-- <small class="form-text text-muted">Lorem Ipsum</small> -->
               </div>
               <div class="form-group">
                 <label for="inputSchoolYear">School Year</label>
@@ -69,6 +68,7 @@
               <div class="form-group">
                 <label for="inputUploader">Uploader</label>
                 <input type="text" class="form-control" id="inputUploader">
+                <small class="form-text text-muted">Indicate the username for the uploader</small>
               </div>
               <div class="form-group">
                 <label for="inputDepartment">Department</label>
