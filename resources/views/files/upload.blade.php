@@ -486,7 +486,11 @@
     preview_ctx.drawImage(img, 0, 0);
     var preview_imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     improveClarity(preview_ctx, preview_imageData);
-    // removeDots(preview_ctx, preview_imageData);
+    improveClarity(preview_ctx, preview_imageData);
+    improveClarity(preview_ctx, preview_imageData);
+    removeDots(preview_ctx, preview_imageData);
+    removeDots(preview_ctx, preview_imageData);
+    removeDots(preview_ctx, preview_imageData);
     $('#export_preview_' + imageID).empty();
     $('#export_preview_' + imageID).append(preview);
   }
@@ -524,7 +528,7 @@
       if (currentPixel == set[0]) {
         set.push(currentPixel);
       } else if (currentPixel != set[0]) {
-        if (set.length < 3) {
+        if (set.length < 1) {
           var index = i - (set.length*4);
           for (var count = 0; count < set.length; count++) {
             data[index] = prevSet[0];
