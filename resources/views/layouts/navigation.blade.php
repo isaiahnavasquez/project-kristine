@@ -9,7 +9,7 @@
   <div class="row header-bar z-depth-1 secondary-text-color align-items-center">
     <div class="col">Project Kristine</div>
     <div class="col-7"></div>
-    <div class="col-2 text-right">Isaiah Jan</div>
+    <div class="col-2 text-right">{{Auth::user()->name}}</div>
     <a href="/logout" class="btn btn-primary" style="margin-top:6px;color:#ffcdd2">Logout</a>
   </div>
 <?php endif; ?>
