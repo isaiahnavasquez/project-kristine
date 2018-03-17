@@ -10,6 +10,6 @@
     <div class="col">Project Kristine</div>
     <div class="col-7"></div>
     <div class="col-2 text-right">Isaiah Jan</div>
-    <a href="#" class="btn btn-primary" style="margin-top:6px;color:#ffcdd2">Logout</a>
+    <a href="/logout" class="btn btn-primary" style="margin-top:6px;color:#ffcdd2">Logout</a>
   </div>
 <?php endif; ?>

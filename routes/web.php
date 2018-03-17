@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'PageController@login');
+Route::get('/logout', 'PageController@logout');
 Route::get('/accounts/add', 'AccountsController@addUser');
 Route::get('/accounts/logs', 'AccountsController@getUserLogs');
 Route::get('/dashboard', 'PageController@dashboard');
