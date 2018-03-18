@@ -17,19 +17,27 @@ class AccountsController extends Controller
 
     $user = new \App\User;
 
-    $user->name = request('name');
-    $user->username = request('username');
-    $user->password = bcrypt(request('password'));
-    $user->role = request('role');
+    // Checks if passwords match
+    if (request('password') == request('password_confirmation')) {
+      $user->name = request('name');
+      $user->username = request('username');
+      $user->password = bcrypt(request('password'));
+      $user->role = request('role');
 
-    $user->save();
+      $user->save();
 
-    auth()->attempt([
-      'username' => $user->username,
-      'password' => $user->password
-    ]);
+      auth()->attempt([
+        'username' => $user->username,
+        'password' => $user->password
+      ]);
 
-    return view('authentication.dashboard');
+      return view('files.search');
+    } else {
+
+      session()->flash('error_password', 'Passwords did not match');
+      return redirect()->back();
+
+    }
 
   }
 

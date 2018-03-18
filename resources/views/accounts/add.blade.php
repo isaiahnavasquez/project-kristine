@@ -9,6 +9,10 @@
     margin-top: 40px;
   }
 
+  .errors {
+    color: red;
+  }
+
 </style>
 @endsection
 
@@ -36,9 +40,16 @@
         <input type="text" class="form-control" id="username" name="username">
         <small id="emailHelp" class="form-text text-muted">The username is automatically generated but is editable.</small>
       </div>
+      <div class="errors">
+        <p>{{ Session::get('error_password') }}</p>
+      </div>
       <div class="form-group">
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" name="password">
+      </div>
+      <div class="form-group">
+        <label for="password">Confirm Password</label>
+        <input type="password" class="form-control" id="password" name="password_confirmation">
       </div>
       <label for="role">Role</label>
       <select class="custom-select" id="role" name="role">
