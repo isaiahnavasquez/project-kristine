@@ -37,7 +37,10 @@ class AccountsController extends Controller
         'password' => $user->password
       ]);
 
-      return view('files.search');
+      $account = [$user];
+
+      session()->flash('success_create_user', 'User Profile has been created: '.$user->username);
+      return view('accounts.view', compact('account'));
     } else {
 
       session()->flash('error_password', 'Passwords did not match');

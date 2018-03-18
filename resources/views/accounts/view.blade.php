@@ -19,10 +19,23 @@
     border-radius: 100%;
   }
 
+  .success {
+    color: green;
+  }
+
 </style>
 @endsection
 
 @section('main-content')
+
+<?php if(Session::has('success_create_user')) : ?>
+  <div class="card success">
+    <div class="card-body">
+      <p>{{ Session::get('success_create_user') }}</p>
+      <p>See details below</p>
+    </div>
+  </div>
+<?php endif; ?>
 
 <div class="card">
   <div class="container">
