@@ -16,6 +16,12 @@ class AccountsController extends Controller
   public function create() {
 
     $user = new \App\User;
+    $existing = $user->where('username', '=', request('username'))->get();
+
+    if (count($existing) != 0) {
+      session()->flash('error_existing', 'Account Already Exist');
+      return redirect()->back();
+    }
 
     // Checks if passwords match
     if (request('password') == request('password_confirmation')) {

@@ -32,12 +32,15 @@
 
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" name="name">
+        <input type="text" class="form-control" id="name" name="name" required>
         <small id="emailHelp" class="form-text text-muted">Enter Your full name</small>
+      </div>
+      <div class="errors">
+        <p>{{ Session::get('error_existing') }}</p>
       </div>
       <div class="form-group">
         <label for="name">Username</label>
-        <input type="text" class="form-control" id="username" name="username">
+        <input type="text" class="form-control" id="username" name="username" required>
         <small id="emailHelp" class="form-text text-muted">The username is automatically generated but is editable.</small>
       </div>
       <div class="errors">
@@ -45,14 +48,14 @@
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password">
+        <input type="password" class="form-control" id="password" name="password" required>
       </div>
       <div class="form-group">
         <label for="password">Confirm Password</label>
-        <input type="password" class="form-control" id="password" name="password_confirmation">
+        <input type="password" class="form-control" id="password" name="password_confirmation" required>
       </div>
       <label for="role">Role</label>
-      <select class="custom-select" id="role" name="role">
+      <select class="custom-select" id="role" name="role" required>
         <option selected>Select Role</option>
         <option value="administrator">Administrator</option>
         <option value="faculty">Faculty</option>
@@ -65,20 +68,21 @@
     </form>
   </div>
 </div>
+<br>
 
 @endsection
 
 @section('scripts')
 
 <script type="text/javascript">
-  $('#name').on('change key down', function() {
-    var str = $('#name').val();
-    var name = str.split(' ');
-    var first = name[0][0];
-    var last = name[name.length-1];
-    var username = first+last;
-    $('#username').val(username.toLowerCase());
-  });
+  // $('#name').on('change key down', function() {
+  //   var str = $('#name').val();
+  //   var name = str.split(' ');
+  //   var first = name[0][0];
+  //   var last = name[name.length-1];
+  //   var username = first+last;
+  //   $('#username').val(username.toLowerCase());
+  // });
 </script>
 
 @endsection
