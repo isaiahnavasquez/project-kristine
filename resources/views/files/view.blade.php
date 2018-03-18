@@ -130,7 +130,7 @@
     "<div class=\"row preview\">"+
     "  <div class=\"col-4\">"+
     "    <div class=\"icon\">" + index + "</div>"+
-    "    <a class=\"btn btn-primary active\">Download</a>"+
+    "    <a href=\"" + image.src + "\" download=\"download\" class=\"btn btn-primary active\">Download</a>"+
     "    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\".preview-image-" + index + "\">Preview</button>"+
     "    <div class=\"modal fade preview-image-" + index + "\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">"+
     "      <div class=\"modal-dialog modal-lg\">"+
