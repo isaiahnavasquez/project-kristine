@@ -57,39 +57,82 @@ class FilesController extends Controller
 
   }
 
+  public function wildSearch(Request $request) {
+
+    $search = $request->search_string;
+
+    return view('files.search', compact('search'));
+
+  }
+
   public function setUpload() {
 
-    return view('files.upload');
+    $folders_db = new \App\Folder;
+    $folders = $folders_db->all();
+
+    return view('files.upload', compact('folders'));
 
   }
 
   public function uploadFiles(Request $request) {
 
-    // save to the files_set
-    $fileSet = new \App\FileSet;
-    $fileSet->name = $request->name;
-    $fileSet->uploader = $request->uploader;
-    $fileSet->type = $request->type;
-    $fileSet->school_year = $request->school_year;
-    $fileSet->associated_id = $request->associated_id;
-    $fileSet->department = $request->department;
-    $fileSet->save();
+    $fileset = new \App\FileSet;
 
-    // save each file from the set
-    for ($i = 0; $i < count($request['files']); $i++) {
-      $index = $request['files'][$i];
-      $filedata = new \App\File;
-      $filedata->index = $index['index'];
-      $filedata->value = $index['value'];
-      $filedata->height = $index['height'];
-      $filedata->width = $index['width'];
-      $filedata->file_set_id = $fileSet->id;
-      $filedata->save();
+    try {
+      // check if fileset is already existing
+      if ($fileset->where('name', $request->file_set)->get()->count() > 0) {
+        // if fileset exists: get the id then add the files
+        $fileset_id = $fileset->where('name', $request->file_set)->get()[0]->id;
+
+        // save each file from the set
+        for ($i = 0; $i < count($request['files']); $i++) {
+          $index = $request['files'][$i];
+          $filedata = new \App\File;
+          $filedata->index = $index['index'];
+          $filedata->value = $index['value'];
+          $filedata->height = $index['height'];
+          $filedata->width = $index['width'];
+          $filedata->file_set_id = $fileset_id;
+          $filedata->save();
+        }
+
+        $response = array('id'=>$fileset_id);
+        return response($response);
+
+      } else {
+        // else: create a new one
+        $fileSet = new \App\FileSet;
+
+        $fileSet->name =          $request->file_set;
+        $fileSet->uploader =      $request->uploader;
+        $fileSet->type =          $request->file_type;
+        $fileSet->school_year =   $request->school_year;
+        $fileSet->associated_id = $request->associated_id;
+        $fileSet->department =    $request->department;
+        $fileSet->folder_id =     $request->folder;
+        $fileSet->save();
+
+        // save each file from the set
+        for ($i = 0; $i < count($request['files']); $i++) {
+          $index = $request['files'][$i];
+          $filedata = new \App\File;
+          $filedata->index = $index['index'];
+          $filedata->value = $index['value'];
+          $filedata->height = $index['height'];
+          $filedata->width = $index['width'];
+          $filedata->file_set_id = $fileSet->id;
+          $filedata->save();
+        }
+
+        $response = array('id'=>$fileSet->id, 'request'=> $request);
+        return response($response);
+
+      }
+
+    } catch (\Exception $e) {
+      return $e->getMessage();
+
     }
-
-    $response = array('id'=>$fileSet->id);
-
-    return response($response);
 
   }
 
@@ -102,6 +145,12 @@ class FilesController extends Controller
   public function viewFileSet(FileSet $fileset) {
 
     return view('files.view', compact('fileset'));
+
+  }
+
+  public function viewFolders(Request $request) {
+
+    return view('files.folders');
 
   }
 

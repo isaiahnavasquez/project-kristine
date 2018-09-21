@@ -49,7 +49,12 @@
       <div class="col">
         <div class="search">
           <h3 style="text-align:center">Search</h3>
-          <input id="searchString" class="card search-text">
+          @if (!empty($search) > 0)
+            <input id="searchString" class="card search-text" value="{{$search}}">
+          @else
+            <input id="searchString" class="card search-text" value="">
+          @endif
+          
         </input><br>
           <div class="card search-field">
             <form>
@@ -119,10 +124,10 @@
 <script type="text/javascript">
 
   $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+  let wild_search_string = '';
   var search = {};
 
-  $('#search').click(function(e){
-    e.preventDefault();
+  function runSearch() {
     getSearchValues();
     $.ajax({
       type: 'POST',
@@ -135,6 +140,24 @@
         console.log(status + '\n' + error);
       }
     });
+  }
+
+  $(this).ready(function() {
+    // console.log($('#searchString')[0].value);
+    // wild_search_string = $('#searchString')[0].value;
+
+    // if (wild_search_string != '') {
+    //   console.log('there is a search');
+
+    // } else {
+    //   console.log('there is no search');
+    // }
+    runSearch();
+  });
+
+  $('#search').click(function(e){
+    e.preventDefault();
+    runSearch();
   });
 
   function displayResults(results) {

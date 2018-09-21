@@ -23,7 +23,7 @@ class PageController extends Controller
 
   public function dashboard() {
 
-    return view('authentication.dashboard');
+    return view('authentication.home');
 
   }
 

@@ -22,4 +22,10 @@ class FileSet extends Model
 
     }
 
+    public function folder() {
+
+    	return $this->belongsTo(Folder::class);
+
+    }
+
 }

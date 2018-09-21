@@ -19,6 +19,10 @@ Route::get('/dashboard', 'PageController@dashboard');
 Route::get('/accounts/list', 'PageController@accountsList');
 Route::get('/accounts/view/{username}', 'PageController@viewProfile');
 Route::get('/files/upload', 'FilesController@setUpload');
+Route::get('/files/folders', 'FoldersController@getFoldersList');
+Route::get('/files/folders/view/{folder_id}', 'FoldersController@getSubFolders');
+Route::get('/files/folders/getlist', 'FoldersController@getSubFoldersList');
+Route::get('/files/folders/getSubFolderDetails', 'FoldersController@getSubFolderDetails');
 Route::get('/files/search', 'FilesController@getSearchPage');
 Route::get('/files/view/{fileset}', 'FilesController@viewFileSet');
 
@@ -26,3 +30,4 @@ Route::post('/login', 'PageController@attempt');
 Route::post('/accounts/add', 'AccountsController@create');
 Route::post('/files/upload', 'FilesController@uploadFiles');
 Route::post('/files/search', 'FilesController@runSearch');
+Route::post('/files/wildsearch', 'FilesController@wildSearch');

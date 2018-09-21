@@ -134,9 +134,21 @@
         </div>
         <br><br><br>
         <div id="attributes">
+          <div class="form-group">
+            <h6 class="card-subtitle mb-2 text-muted">Folder</h6>
+            <select class="form-control" id="folder" name="folder">
+              @foreach ($folders as $folder)
+                <option value="{{ $folder->id }}">{{ strtoupper($folder->name) }}</option>
+              @endforeach
+            </select>
+          </div>
 
-          <h6 class="card-subtitle mb-2 text-muted">Name</h6>
-          <input type="text" class="form-control" id="username" name="name" required><br><br>
+          <div class="form-group">
+            <h6 class="card-subtitle mb-2 text-muted">Sub Folder</h6>
+            <input type="text" id="subFolders" class="form-control" name="sub_folder" required list="file_sets" autocomplete="off"><br>
+            <datalist id="file_sets"></datalist>
+          </div><br>
+
           <h6 class="card-subtitle mb-2 text-muted">Uploader</h6>
           <p class="card-text">{{'@'.Auth::user()->username }}</p><br>
           <input type="text" class="form-control" name="uploader" value="{{Auth::user()->username}}" hidden>
@@ -149,13 +161,13 @@
             </div> -->
           </div><br><br>
           <h6 class="card-subtitle mb-2 text-muted">School Year (Optional)</h6>
-          <input type="text" class="form-control" name="school_year" required><br><br>
+          <input id="school_year" type="text" class="form-control" name="school_year" required><br><br>
           <h6 class="card-subtitle mb-2 text-muted">File Type (Optional)</h6>
-          <input type="text" class="form-control" name="file_type" required><br><br>
+          <input id="file_type" type="text" class="form-control" name="file_type" required><br><br>
           <h6 class="card-subtitle mb-2 text-muted">Department (Optional)</h6>
-          <input type="text" class="form-control" name="department" required><br><br>
+          <input id="department" type="text" class="form-control" name="department" required><br><br>
           <h6 class="card-subtitle mb-2 text-muted">Associated ID (Optional)</h6>
-          <input type="text" class="form-control" name="associated_id" required><br>
+          <input id="associated_id" type="text" class="form-control" name="associated_id" required><br>
           <button id="upload" class="card-link btn btn-primary active" style="margin-left: 8px;">Begin Upload</button>
 
           <!-- Compressed Variables -->
@@ -218,11 +230,79 @@
   var input = document.querySelector('#chooseFile');
   var progress = 0;
 
+  var folder = document.getElementById('folder');
+  getSubFolders(folder.options[folder.selectedIndex].value);
+
   input.addEventListener('change', getImage);
   $('#upload').on('click', function(e) {
     e.preventDefault();
     upload();
   });
+
+  $('#folder').change(function (e) {
+    $('#file_sets').empty();
+    selectedIndex = e.target.selectedIndex;
+    folder_id = e.target.options[selectedIndex].value;
+
+    getSubFolders(folder_id);
+  });
+
+  $('#subFolders').change(function (e) {
+
+    sub_folder_name = e.target.value;
+
+    $.ajax({
+      type: 'GET',
+      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+      url: 'folders/getSubFolderDetails/',
+      data: {
+        'sub_folder_name': sub_folder_name,
+        'folder_id': $('select[name=folder]').val()
+      },
+      success: function(data) {
+        console.log(data);
+        if (data.response.record_exists == 'true') {
+          record = data.response.data;
+          $('#school_year').val(record.school_year);
+          $('#file_type').val(record.type);
+          $('#department').val(record.department);
+          $('#associated_id').val(record.associated_id);
+        } else {
+          $('#school_year').val('');
+          $('#file_type').val('');
+          $('#department').val('');
+          $('#associated_id').val('');
+        }
+      },
+      error: function(jqXHR, status, error) {
+        console.log(status + '\n' + error);
+      }
+    });
+
+  });
+
+  function getSubFolders(folder_id) {
+    data = {
+      'folder_id': folder_id
+    };
+
+    $.ajax({
+      type: 'GET',
+      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+      url: 'folders/getlist',
+      data: data,
+      success: function(data) {
+        data.response.forEach(function(sub_folder) {
+          $('#file_sets').append(
+          '<option>' + sub_folder.name + '<option>'
+          );
+        });
+      },
+      error: function(jqXHR, status, error) {
+        console.log(status + '\n' + error);
+      }
+    });
+  }
 
   function upload() {
     $.snackbar({
@@ -233,13 +313,15 @@
     });
 
     var uploadData = {
-      'name':           $('input[name=name]').val(),
       'uploader':       $('input[name=uploader]').val(),
       'school_year':    $('input[name=school_year]').val(),
       'file_type':      $('input[name=file_type]').val(),
       'department':     $('input[name=department]').val(),
       'associated_id':  $('input[name=associated_id]').val(),
+      'folder':         $('select[name=folder]').val(),
+      'file_set':       $('input[name=sub_folder]').val(),
       'files':          []
+
     };
 
     for (file in files) {

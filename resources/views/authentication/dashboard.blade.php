@@ -27,6 +27,8 @@
     <ul class="list-group bmd-list-group-sm" style="margin-top:10px;">
       <li class="list-group-item"><h5>File Manager</h5></li>
       <div style="padding-left:15px">
+        <a href="/dashboard" class="list-group-item">Dashboard</a>
+        <a href="/files/folders" class="list-group-item">Folders</a>
         <a href="/files/search" class="list-group-item">Search</a>
         <a href="/files/upload" class="list-group-item">Upload</a>
       </div>
