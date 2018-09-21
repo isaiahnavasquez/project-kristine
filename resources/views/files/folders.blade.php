@@ -39,7 +39,7 @@
 		@foreach($folders as $folder)
 			<div class="folder">
 				<div style="text-align:center">
-					<a href="/files/folders/view/{{$folder->name}}" class="btn-control-primary">OPEN</a>
+					<a href="/files/folders/view/{{$folder->id}}" class="btn-control-primary">OPEN</a>
 				</div>
 				<p><strong>{{ strtoupper($folder->name) }}</strong></p>
 			</div>

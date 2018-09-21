@@ -79,8 +79,8 @@
         <h6>{{ $fileset->uploader }}</h6><br>
       </div>
       <div class="col-8" id="files">
-        <!-- <div class="row preview">
-          <div class="col-4">
+        <div class="row preview">
+          <!-- <div class="col-4">
             <div class="icon">1</div>
             <a class="btn btn-primary active">Download</a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".preview-image-">Preview</button>
@@ -94,8 +94,8 @@
           </div>
           <div class="col-8">
             <div class="card"></div>
-          </div>
-        </div> -->
+          </div> -->
+        </div>
 
       </div>
 
@@ -130,7 +130,8 @@
     "<div class=\"row preview\">"+
     "  <div class=\"col-4\">"+
     "    <div class=\"icon\">" + index + "</div>"+
-    "    <a href=\"" + image.src + "\" download=\"download\" class=\"btn btn-primary active\">Download</a>"+
+    "    <a href=\"" + image.src + "\" download=\"download\" class=\"btn btn-primary active\">Download</a><br>"+
+    "    <button class=\"btn btn-primary\" onclick=\"print(" + file.id + ")\">Print</button>"+
     "    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\".preview-image-" + index + "\">Preview</button>"+
     "    <div class=\"modal fade preview-image-" + index + "\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">"+
     "      <div class=\"modal-dialog modal-lg\">"+
@@ -141,12 +142,23 @@
     "    </div>"+
     "  </div>"+
     "  <div class=\"col-8 image-" + index + "\">"+
-    "    <img src=\"" + image.src + "\" class=\"card\"/>"+
+    "    <img id=\"image_id_" + file.id + "\" src=\"" + image.src + "\" class=\"card\"/>"+
     "  </div>"+
     "</div>";
 
     $('#files').append(preview);
   }
+
+  function print(image_id) {
+    console.log('printing: ' + image_id + document.getElementById('image_id_' + image_id).src);
+    // pwin = window.open(document.getElementById('image_id_' + image_id).src, 'Image');
+    // pwin.onload = function () {
+    //   window.print();
+    // };
+    popup = window.open();
+    popup.document.write("<img height='842px' width='595px' src='" + document.getElementById('image_id_' + image_id).src + "'>");
+    popup.print();
+  };
 
   function deCompress(compressedData, height, width) {
     compressedData += 'L';

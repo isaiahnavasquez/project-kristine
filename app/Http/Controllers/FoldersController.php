@@ -19,7 +19,12 @@ class FoldersController extends Controller
 
 	public function getSubFolders($folder_id) {
 
-		return view('files.sub_folders');
+		$fileset_db = new \App\FileSet;
+		$folder_db = new \App\Folder;
+		$folder_name = $folder_db->where('id', $folder_id)->get()[0]->name;
+		$sub_folders = $fileset_db->where('folder_id', $folder_id)->get();
+
+		return view('files.sub_folders', compact('sub_folders', 'folder_name'));
 
 	}
 

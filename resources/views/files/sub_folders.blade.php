@@ -16,25 +16,42 @@
 		}
 
 		.folder {
-			height: 200px;
-			width: 200px;
-			margin-top: 20px;
-			margin-left: 20px;
-			border: 5px solid grey;
+			background-color: white;
+			min-height: 50px;
+			min-width: 200px;
 			border-radius: 5px;
-			text-align: center;
+			box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+			margin: 10px;
 			display: flex;
-			flex-direction: column-reverse;
-			padding: 10px;
+			align-items: center;
+			justify-content: center;
+			padding: 5px 20px 0px 20px;
+		}
+
+		a {
+			color: #f05545;
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: #f05545;
+			text-decoration: none;
 		}
 	</style>
 @endsection
 
 @section('main-content')
 
-	<h2 class="title">Folders</h2>
+	<h2 class="title">Folders/{{ strtoupper($folder_name) }}</h2>
 
-	<h1>Hello</h1>
+	<div class="container">
+	@foreach($sub_folders as $folder)
+		<div class="folder">
+			<h4><a href="/files/view/{{ $folder->id }}">{{ ucwords($folder->name) }}</a></h4>
+		</div>
+	@endforeach
+	</div>
+
 
 @endsection
 
