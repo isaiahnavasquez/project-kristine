@@ -27,11 +27,29 @@
 		    padding: 20px 20px;
 		    font-size: 20px;
 		}
+
+		img {
+		    height: 100px;
+		    width: 300px;
+	    }
+
+	    .banner {
+		    width: 100%;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    margin-top: 20px;
+		    margin-bottom: 20px;
+		}
 	</style>
 @endsection
 
 @section('main-content')
 	<div class="container">
+		<div class="banner">
+			<img src="https://i1.wp.com/umap.org/wp-content/uploads/2017/06/UM_Logo2.jpg">	
+		</div>
+		
 		<h2 class="title">Welcome to <br> Quality Management System <br>for File Archives</h2>
 		<br>
 		<div class="search">

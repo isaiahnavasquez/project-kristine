@@ -4,9 +4,34 @@
 
   @include('layouts.header')
 
+  <style type="text/css">
+    img {
+      height: 100px;
+      width: 300px;
+    }
+
+    .banner {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .auth-card {
+      margin-top: 215px;
+    }
+  </style>
+
 @endsection
 
 @section('content')
+
+  <div class="banner">
+    <img src="https://i1.wp.com/umap.org/wp-content/uploads/2017/06/UM_Logo2.jpg">
+  </div>
+
   <div style="height:100%;width:100%;">
     <div class="card auth-card">
       <div class="card-body">
