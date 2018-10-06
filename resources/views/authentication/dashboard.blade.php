@@ -36,10 +36,11 @@
     <!-- Show Accounts Manager if user is an admin -->
     <?php if (Auth::user()->role == 'administrator') : ?>
       <ul class="list-group bmd-list-group-sm" style="margin-top:10px;">
-        <li class="list-group-item"><h5>Accounts Manager</h5></li>
+        <li class="list-group-item"><h5>Admin Access</h5></li>
         <div style="padding-left:15px">
           <a href="/accounts/add" class="list-group-item">Add user</a>
           <a href="/accounts/list" class="list-group-item">Accounts</a>
+          <a href="/files/folders/manage" class="list-group-item">Manage Folders</a>
         </div>
       </ul>
     <?php endif; ?>

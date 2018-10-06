@@ -11,7 +11,8 @@ class FoldersController extends Controller
     
 	public function getFoldersList() {
 
-		$folders = DB::table('folders')->get();
+		$db_folders = new \App\Folder;
+		$folders = $db_folders->where('archived', 0)->get();
 
 		return view('files.folders', compact('folders'));
 
@@ -65,6 +66,69 @@ class FoldersController extends Controller
 			return $e->getMessage();
 
 		}
+
+	}
+
+	public function manageFolders(Request $request) {
+
+		$folder = new \App\Folder;
+		$folders = $folder->get();
+
+		return view('files.edit_folders', compact('folders'));
+
+	}
+
+	public function updateName(Request $request) {
+		
+		$db_folders = new \App\Folder;
+		$folder = $db_folders->where('id', $request->id)->get()[0];
+
+		$folder->name = $request->new_name;
+		$folder->save();
+
+		return response(array(
+			'message' => 'success'
+		));
+
+	}
+
+	public function toggleArchive(Request $request) {
+
+		$response = array('message' => '');
+
+		try {
+		
+			$db_folders = new \App\Folder;
+			$id = $request->id;
+			$folder = $db_folders->where('id', $id)->get()[0];
+			$archived = $folder->archived;
+
+			if ($archived == 1) {
+				$folder->archived = 0;
+			} else {
+				$folder->archived = 1;
+			}
+
+			$folder->save();
+			$response = array('message' => 'success');
+
+		} catch (\Exception $e) {
+			$response = array('message' => $e->getMessage());
+		}
+
+		return response($response);
+
+	}
+
+	public function addFolder(Request $request) {
+		
+		$folder = new \App\Folder;
+		$folder->name = $request->folder_name;
+		$folder->save();
+
+		return response(array(
+			'message'=> 'folder added'.$request->folder_name
+		));
 
 	}
 
