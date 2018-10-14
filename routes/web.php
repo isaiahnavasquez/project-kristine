@@ -18,6 +18,7 @@ Route::get('/dashboard', 'PageController@dashboard');
 
 // ACCOUNTS
 Route::get('/accounts/add', 'AccountsController@addUser');
+Route::get('/accounts/add/superuser', 'AccountsController@enterSuperuser');
 Route::get('/accounts/logs', 'AccountsController@getUserLogs');
 Route::get('/accounts/list', 'PageController@accountsList');
 Route::get('/accounts/view/{username}', 'PageController@viewProfile');
@@ -42,3 +43,4 @@ Route::post('/files/folders/manage/add', 'FoldersController@addFolder');
 
 Route::post('/login', 'PageController@attempt');
 Route::post('/accounts/add', 'AccountsController@create');
+Route::post('/accounts/add/createsuperuser', 'AccountsController@createSuperuser');

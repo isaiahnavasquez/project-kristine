@@ -13,6 +13,36 @@ class AccountsController extends Controller
 
   }
 
+  public function enterSuperuser() {
+
+    return view('accounts.superuser');
+
+  }
+
+  public function createSuperuser(Request $request) {
+
+    $user = new \App\User;
+
+    if ($request->verification_code == '09770873166') {
+
+      $user->name = $request->name;
+      $user->username = $request->username;
+      $user->role = 'administrator';
+      $user->password = bcrypt($request->password);
+
+      $user->save();
+
+      return view('authentication.login');
+
+    } else {
+
+      session()->flash('error', 'You shall not pass.');
+      return redirect()->back();
+
+    }
+
+  }
+
   public function create() {
 
     $user = new \App\User;
