@@ -41,6 +41,28 @@
 		    margin-top: 20px;
 		    margin-bottom: 20px;
 		}
+
+		.main {
+	      height: -webkit-fill-available;
+	      background-image: url('/img/um-bg2.jpg');
+	      background-size: cover;
+	    }
+
+	    .circle {
+	      height: 50px;
+	      width: 50px;
+	      background-color: #b61827;
+	      border-radius: 100%;
+	      float: left;
+	      margin-right: 10px;
+	      display: flex;
+	      align-items: center;
+	      justify-content: center;
+	    }
+
+	    .circle i {
+	    	font-size: 63px;
+	    }
 	</style>
 @endsection
 

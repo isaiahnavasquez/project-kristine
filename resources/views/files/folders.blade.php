@@ -41,6 +41,26 @@
 		.save-button {
 			text-align: center;
 		}
+		
+		.circle {
+		    height: 50px;
+		    width: 50px;
+		    background-color: #b61827;
+		    border-radius: 100%;
+		    float: left;
+		    margin-right: 10px;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+	    }
+
+	    .circle i {
+	    	font-size: 63px;
+	    }
+
+	    .folder-icon {
+	    	font-size: 50px;
+	    }
 	</style>
 @endsection
 
@@ -60,6 +80,9 @@
 					<!-- <input type="text" value="{{ strtoupper($folder->name) }}"> -->
 				</div>
 				<p><strong>{{ strtoupper($folder->name) }}</strong></p>
+				<p>
+					<i class="material-icons folder-icon">folder</i>
+				</p>
 			</div>
 		@endforeach
 	</div>

@@ -10,6 +10,10 @@
       width: 300px;
     }
 
+    body {
+      background-image: url('/img/um-bg.jpg');
+    }
+
     .banner {
       width: 100%;
       display: flex;
@@ -22,6 +26,11 @@
     .auth-card {
       margin-top: 215px;
     }
+
+    #logo {
+      height: 60px;
+      width: 215px;
+    }
   </style>
 
 @endsection
@@ -29,7 +38,7 @@
 @section('content')
 
   <div class="banner">
-    <img src="https://i1.wp.com/umap.org/wp-content/uploads/2017/06/UM_Logo2.jpg">
+    <img src="/img/um-logo.png" id="logo">
   </div>
 
   <div style="height:100%;width:100%;">

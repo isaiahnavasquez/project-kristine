@@ -37,6 +37,22 @@
 			color: #f05545;
 			text-decoration: none;
 		}
+
+		.circle {
+		    height: 50px;
+		    width: 50px;
+		    background-color: #b61827;
+		    border-radius: 100%;
+		    float: left;
+		    margin-right: 10px;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+	    }
+
+	    .circle i {
+	    	font-size: 63px;
+	    }
 	</style>
 @endsection
 
